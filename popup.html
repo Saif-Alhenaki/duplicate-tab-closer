@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+  :root {
+    --bg: #ffffff;
+    --fg: #202124;
+    --muted: #5f6368;
+    --line: #e8eaed;
+    --primary: #1a73e8;
+    --primary-hover: #1557b0;
+    --secondary: #f1f3f4;
+    --secondary-hover: #e3e6e8;
+    --accent: #d93025;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #202124;
+      --fg: #e8eaed;
+      --muted: #9aa0a6;
+      --line: #3c4043;
+      --secondary: #303134;
+      --secondary-hover: #3c4043;
+      --accent: #f28b82;
+    }
+  }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--fg); }
+  body {
+    width: 280px;
+    padding: 14px;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 13px;
+  }
+  .header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 4px;
+  }
+  .title { font-size: 13px; font-weight: 600; }
+  .count { font-size: 28px; font-weight: 700; color: var(--accent); line-height: 1; }
+  .count.zero { color: var(--muted); }
+  .sub { color: var(--muted); font-size: 11px; margin-bottom: 12px; }
+  button {
+    display: block;
+    width: 100%;
+    padding: 9px 10px;
+    margin-bottom: 6px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12.5px;
+    font-family: inherit;
+    text-align: left;
+  }
+  button:disabled { opacity: 0.45; cursor: default; }
+  .primary { background: var(--primary); color: white; }
+  .primary:not(:disabled):hover { background: var(--primary-hover); }
+  .secondary { background: var(--secondary); color: var(--fg); }
+  .secondary:not(:disabled):hover { background: var(--secondary-hover); }
+  .btn-title { display: block; font-weight: 600; }
+  .btn-desc { display: block; font-size: 10.5px; opacity: 0.85; margin-top: 2px; }
+  .footer { font-size: 10.5px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">Duplicate Tab Closer</div>
+    <div class="count" id="count">0</div>
+  </div>
+  <div class="sub" id="sub">tabs that can be closed</div>
+
+  <button class="primary" id="closeAll" disabled>
+    <span class="btn-title">Close duplicates</span>
+    <span class="btn-desc">Keeps the tab you used most recently</span>
+  </button>
+
+  <button class="secondary" id="closeKeepPinned" disabled>
+    <span class="btn-title">Close duplicates · keep pinned</span>
+    <span class="btn-desc">If a copy is pinned, only the non-pinned ones close</span>
+  </button>
+
+  <div class="footer">Pinned tabs are counted; tracking params (utm_, fbclid, gclid…) are ignored when matching.</div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
